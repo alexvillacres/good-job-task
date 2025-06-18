@@ -1,11 +1,15 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { UserButton } from "@clerk/nextjs";
+import { redirect } from "next/navigation";
 import Link from "next/link";
 import AddTaskForm from "@/components/AddTaskForm";
 import TasksList from "@/components/TasksList";
 
 export default async function DashboardPage() {
   const user = await currentUser();
+  if (!user) {
+    redirect("/");
+  }
 
   return (
     <main className="min-h-screen bg-gray-100">
